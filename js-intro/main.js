@@ -4,11 +4,13 @@
 
 // datatypes
 // primitives
+
 // 1. numbers
 console.log(2 + 2);
 console.log(3.14);
 // 2. booleans
 // true or false
+
 // 3. strings
 console.log(typeof 2);
 console.log("this is a string");
@@ -18,7 +20,6 @@ console.log("this is a string");
 // objects
 // 4. objects
 var myObj = {};
-
     myObj = {
       propName: "propvalue"
     };
@@ -39,15 +40,19 @@ function nameOfFunction() {
 }
 
 // logical operators
-//+ - = === == <>
+// && and
+// || or
+// ! not
+
 var myBool = false;
-if(myBool) {
+if("hello" === "hello") {
   console.log("you're so true");
 } else if(myBool === false) {
   console.log("you are not right");
 } else {
   console.log("gave up, eh?");
 }
+
 
 
 
