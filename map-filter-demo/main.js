@@ -11,16 +11,14 @@ var redditMapped10Ups = reddit10ups.map(function (item) {
   };
 });
 
-
-
-
-
-
-
 var redditHTML = "";
 reddit10ups.forEach(function (item, idx, arr) {
   // cool stuff here
-  redditHTML += "<h3>" + item.data.title + " - ups: " + item.data.ups + "</h3>";
+  redditHTML += "<div class='box'><h3><span>+</span>" + item.data.title + " - ups: " + item.data.ups + "</h3></div>";
 });
 
-document.querySelector('body').innerHTML = redditHTML;
+$(document).ready(function() {
+
+  $('body').html(redditHTML);
+
+});
