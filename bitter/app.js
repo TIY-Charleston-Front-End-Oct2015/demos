@@ -1,3 +1,26 @@
+// var albums = {
+//   mason: [
+//     "http://www.fillmurray.com/100/100",
+//     "http://www.fillmurray.com/200/100",
+//     "http://www.fillmurray.com/100/200"
+//   ],
+//   mia: [
+//     "http://www.placehold.it/200/200",
+//     "http://www.placehold.it/500/500",
+//   ],
+//   dustin: [
+//     "photo1",
+//     "photo2"
+//   ]
+// };
+// function printPhotos(albumName) {
+//   return albums[albumName];
+// }
+// albums.mia.forEach(function (el) {
+//   $('body').prepend("<img class='miaphotos' src='" + el + "'>");
+// });
+
+
 var bitterData = [
   {
     avatar: "https://avatars1.githubusercontent.com/u/14340304?v=3&s=460",
@@ -139,7 +162,7 @@ var contactBitters = _.filter(bitterData, function (currItem, idx) {
   });
 
   $('.delete').click(function (event) {
-    
+
     $(this).closest('article').remove();
 
   });
