@@ -21,6 +21,7 @@ $(document).ready(function () {
 
   var bitterHTML = "";
 
+// we need to merge our data from bitterData with actual markup so that we can add to our html document
   _.each(bitterData, function (currVal, idx, arr) {
     bitterHTML += "<article class='bit'>"
       + "<h3>"
@@ -35,7 +36,7 @@ $(document).ready(function () {
       + "</article>";
       console.log('bitterHTML: ', bitterHTML);
   });
-
+// add giant string of markup to the DOM
   $('.bitters').html(bitterHTML);
 
   $('form').submit(function (event) {
@@ -84,3 +85,13 @@ $(document).ready(function () {
 
 
 });
+
+
+
+var boxString = '<div class="box">'
+  + '<form>'
+  +  '<input type="text" name="avatar" value="" placeholder="Avatar Url">'
+  +  '<input type="text" name="bitter" value="" placeholder="What are you bitter about?">'
+  +  '<button type="submit" name="submit">Submit</button>'
+  + '</form>'
+  + '</div>';
