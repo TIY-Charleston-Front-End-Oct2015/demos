@@ -5,18 +5,36 @@
   <title>Bitter App</title>
   <link rel="stylesheet" href="bower_components/normalize-css/normalize.css" media="screen" title="no title" charset="utf-8">
   <link rel="stylesheet" href="styles.css" media="screen" title="no title" charset="utf-8">
+  <script type="text/html" id="bitterTmpl">
+    <article class="bit" data-index="">
+      <h3><img src="<%= avatar %>"></h3>
+      <p><%= bitter %></p>
+      <button class="delete">Delete</button>
+    </article>
+  </script>
 </head>
 <body>
   <header>
     <nav>
       <ul>
-        <li><a href="" class="homeNav">home</a></li>
-        <li><a href="" class="aboutNav">about bitter</a></li>
-        <li><a href="" class="contactNav">contact for abuse</a></li>
+        <li><a href="" rel="bitters">home</a></li>
+        <li><a href="" rel="about">about bitter</a></li>
+        <li><a href="" rel="contact">contact for abuse</a></li>
+        <li><a href="" rel="bio">BIO!!</a></li>
+        <li><a href="" rel="products">PRODUCTS!!</a></li>
       </ul>
     </nav>
   </header>
-  <section class="contact">
+  <section class="products">
+   <h1>Products!!!!!</h1>
+ </section>
+  <section class="bio">
+   <h2>Bio!!</h2>
+   <p>
+    this is me, love it or not!
+   </p>
+ </section>
+   <section class="contact">
     <h2>Contat Us for Abuse</h2>
     <p>
       call: <a href="tel:8433333333">8433333333</a>
@@ -28,7 +46,7 @@
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
   </section>
-  <section class="bitters">
+  <section class="bitters active-section">
 
   </section>
   <aside>
@@ -46,9 +64,9 @@
   <footer>
     <nav>
       <ul>
-        <li><a href="">home</a></li>
-        <li><a href="">about bitter</a></li>
-        <li><a href="">contact for abuse</a></li>
+        <li><a rel="bitters" href="">home</a></li>
+        <li><a rel="about" href="">about bitter</a></li>
+        <li><a rel="contact" href="">contact for abuse</a></li>
       </ul>
     </nav>
   </footer>

@@ -55,5 +55,8 @@ article {
   border-radius: 10px;
   color: white; }
 
-.about, .contact {
+section {
   display: none; }
+
+.active-section {
+  display: inline-block; }

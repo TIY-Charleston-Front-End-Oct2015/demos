@@ -71,6 +71,9 @@ article {
   color: white;
 }
 
-.about, .contact {
+section {
   display: none;
+}
+.active-section {
+  display: inline-block;
 }
