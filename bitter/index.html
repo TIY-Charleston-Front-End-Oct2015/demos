@@ -5,13 +5,6 @@
   <title>Bitter App</title>
   <link rel="stylesheet" href="bower_components/normalize-css/normalize.css" media="screen" title="no title" charset="utf-8">
   <link rel="stylesheet" href="styles.css" media="screen" title="no title" charset="utf-8">
-  <script type="text/html" id="bitterTmpl">
-    <article class="bit" data-index="">
-      <h3><img src="<%= avatar %>"></h3>
-      <p><%= bitter %></p>
-      <button class="delete">Delete</button>
-    </article>
-  </script>
 </head>
 <body>
   <header>
@@ -19,7 +12,7 @@
       <ul>
         <li><a href="" rel="bitters">home</a></li>
         <li><a href="" rel="about">about bitter</a></li>
-        <li><a href="" rel="contact">contact for abuse</a></li>
+        <li><a href="" rel="contact">Top Three Bitters</a></li>
         <li><a href="" rel="bio">BIO!!</a></li>
         <li><a href="" rel="products">PRODUCTS!!</a></li>
       </ul>
@@ -66,7 +59,7 @@
       <ul>
         <li><a rel="bitters" href="">home</a></li>
         <li><a rel="about" href="">about bitter</a></li>
-        <li><a rel="contact" href="">contact for abuse</a></li>
+        <li><a rel="contact" href="">Top Three Bitters</a></li>
       </ul>
     </nav>
   </footer>
@@ -78,6 +71,8 @@
   <script src="bower_components/underscore/underscore.js"></script>
 
 <!-- app files -->
+  <script type="text/javascript" src="data.js"></script>
+  <script type="text/javascript" src="bitterTemplates.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
