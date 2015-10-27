@@ -3,13 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <title>_.template review</title>
-  <script type="text/smellsgood" id="profileTmpl" charset="utf-8">
+  <script type="text/html" id="profileTmpl" charset="utf-8">
     <article class="profile">
       <img src="<%= photo %>" alt="" />
       <h3><%= name %></h3>
       <p><%= bio %></p>
     </article>
   </script>
+  <style media="screen">
+    .profile {
+      display: inline-block;
+      width: 27%;
+    }
+    .profile img {
+      border-radius: 100%;
+      max-width: 250px;
+    }
+  </style>
 </head>
 <body>
 
