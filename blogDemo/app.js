@@ -8,14 +8,15 @@ var page = {
 
     blogData.splice(idx,1);
     $('.blog').html('');
-    page.loadArticles(blogData);
+    page.renderArticles(blogData);
   },
     init: function () {
       page.initStyling();
       page.initEvents();
+      
     },
     initStyling: function () {
-      page.loadArticles(blogData);
+      page.renderArticles(blogData);
       page.loadTemplate($('aside'), {}, $('#asideTmpl').html());
     },
     initEvents: function () {
@@ -65,9 +66,10 @@ var page = {
       var html = template(data);
       $el.append(html);
     },
-    loadArticles: function (arr) {
-      _.each(arr, function (currEl, idx, arr) {
+    renderArticles: function (arr) {
+      _.each(arr, function (currEl, idx) {
         currEl.id = idx;
+
         page.loadTemplate($('.blog'), currEl, $('#articleTmpl').html());
       });
     },
