@@ -1,0 +1,1 @@
+console.error("Error: Parsing file /Users/calvinwebster/Documents/tiy-fee/demos/instaFlickr/flickrCollectionView.js: Unexpected token (22:2)");
