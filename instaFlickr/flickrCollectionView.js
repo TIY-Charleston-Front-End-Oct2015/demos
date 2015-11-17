@@ -18,7 +18,7 @@ module.exports = Backbone.View.extend({
     // newModel.save();
     // this.collection.add(newModel);
     // this.addOne(newModel);
-  }
+  },
   doSomething: function () {
     alert('you clicked the button');
   },
