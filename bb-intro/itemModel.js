@@ -10,6 +10,7 @@ module.exports = Backbone.Model.extend({
     isComplete: false
   },
   initialize: function () {
-
+      // NOOP
+      console.log('created new model');
   }
 });
