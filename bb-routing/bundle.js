@@ -1,13 +1,107 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var Backbone = require('backbone');
+var Book = require('./model');
+module.exports = Backbone.Collection.extend({
+  url: 'http://tiny-tiny.herokuapp.com/collections/bb-routes',
+  model: Book
+});
+
+},{"./model":5,"backbone":7}],2:[function(require,module,exports){
+var Backbone = require('backbone');
+var BookView = require('./modelView');
+var _ = require('underscore');
+
+module.exports = Backbone.View.extend({
+  tagName: 'section',
+  initialize: function () {},
+  render: function () {
+    this.addAll();
+    console.log(this);
+    return this;
+  },
+  addAll: function () {
+    _.each(this.collection.models, this.addOne, this);
+  },
+  addOne: function (bookModel) {
+    var bookView = new BookView({model: bookModel});
+    this.$el.append(bookView.render().el);
+  }
+});
+
+},{"./modelView":6,"backbone":7,"underscore":9}],3:[function(require,module,exports){
+var Backbone = require('backbone');
+var Book = require('./model');
+var _ = require('underscore');
+var tmpl = require('./templates');
+module.exports = Backbone.View.extend({
+  tagName: 'form',
+  className: 'newBook',
+  template: _.template(tmpl.form),
+  initialize: function () {
+    if(!this.model) this.model = new Book();
+  },
+  events: {
+    'submit': 'addBook'
+  },
+  render: function () {
+    var markup = this.template(this.model.toJSON());
+    this.$el.html(markup);
+    console.log(this.el);
+    return this;
+  },
+  addBook: function (e) {
+    e.preventDefault();
+    var $form = this.$el;
+    var newBook = {
+      title: $form.find('input[name="title"]').val(),
+      cover: $form.find('input[name="cover"]').val(),
+      author: $form.find('input[name="author"]').val(),
+      description: $form.find('input[name="description"]').val()
+    };
+    console.log("new book", newBook);
+    this.model.save(newBook);
+    window.location.hash = '#';
+  }
+});
+
+},{"./model":5,"./templates":11,"backbone":7,"underscore":9}],4:[function(require,module,exports){
 var $ = require('jquery');
 var Router = require('./router');
 var Backbone = require('backbone');
+var Collection = require('./collection');
+var ColView = require('./collectionView');
 $(function () {
+
   new Router();
   Backbone.history.start();
 });
 
-},{"./router":5,"backbone":2,"jquery":3}],2:[function(require,module,exports){
+},{"./collection":1,"./collectionView":2,"./router":10,"backbone":7,"jquery":8}],5:[function(require,module,exports){
+var Backbone = require('backbone');
+module.exports = Backbone.Model.extend({
+  urlRoot: 'http://tiny-tiny.herokuapp.com/collections/bb-routes',
+  idAttribute: '_id',
+  initialize: function () {}
+});
+
+},{"backbone":7}],6:[function(require,module,exports){
+var Backbone = require('backbone');
+var Book = require('./model');
+var _ = require('underscore');
+var tmpl = require('./templates');
+module.exports = Backbone.View.extend({
+  tagName: 'article',
+  className: 'book',
+  template: _.template(tmpl.book),
+  initialize: function () {},
+  render: function () {
+    var markup = this.template(this.model.toJSON());
+    this.$el.html(markup);
+    return this;
+  }
+});
+
+},{"./model":5,"./templates":11,"backbone":7,"underscore":9}],7:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.3
 
@@ -1905,7 +1999,7 @@ $(function () {
 }));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":3,"underscore":4}],3:[function(require,module,exports){
+},{"jquery":8,"underscore":9}],8:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -11117,7 +11211,7 @@ return jQuery;
 
 }));
 
-},{}],4:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -12667,30 +12761,39 @@ return jQuery;
   }
 }.call(this));
 
-},{}],5:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');
+var FormView = require('./formView');
+var Collection = require('./collection');
+var ColView = require('./collectionView');
 
 module.exports = Backbone.Router.extend({
   routes: {
     '': 'homePage',
     'about': 'aboutPage',
-    'blahblah': 'someShit'
+    'addBook': 'addBook'
+
   },
   initialize: function (options) {
     // if(!this.layout) {
     //   this.layout = options.layout;
     // }
   },
-  someShit: function () {
-    console.log("some shits");
-  },
   homePage: function () {
     console.log("you've made it to home!!");
+    var collection = new Collection();
+    collection.fetch().then(function () {
+      $('#layout').html(new ColView({collection: collection}).render().el);
+    })
   },
   aboutPage: function () {
     console.log("you've made it to the about page");
+  },
+  addBook: function () {
+    // render form view pass router instance so can navigate
+    $('#layout').html(new FormView({router: this}).render().el);
   }
 
 
@@ -12698,4 +12801,23 @@ module.exports = Backbone.Router.extend({
 
 })
 
-},{"backbone":2,"jquery":3,"underscore":4}]},{},[1]);
+},{"./collection":1,"./collectionView":2,"./formView":3,"backbone":7,"jquery":8,"underscore":9}],11:[function(require,module,exports){
+module.exports = {
+  book: [
+    '<article>',
+      '<img src="<%= cover %>">',
+      '<h3><%= title %></h3>',
+      '<h4><%= author %></h4>',
+      '<p><%= description %></p>',
+    '</article>'
+  ].join(""),
+  form: [
+    '<input type="text" placholder="Title" name="title">',
+    '<input type="text" placholder="description" name="description">',
+    '<input type="text" placholder="cover" name="cover">',
+    '<input type="text" placholder="author" name="author">',
+    '<input type="submit" value="submit">'
+  ].join('')
+};
+
+},{}]},{},[4]);

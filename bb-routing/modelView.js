@@ -5,7 +5,7 @@ var tmpl = require('./templates');
 module.exports = Backbone.View.extend({
   tagName: 'article',
   className: 'book',
-  template: _.template(tmpl.book)
+  template: _.template(tmpl.book),
   initialize: function () {},
   render: function () {
     var markup = this.template(this.model.toJSON());

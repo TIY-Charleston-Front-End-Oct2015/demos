@@ -3,10 +3,12 @@ var BookView = require('./modelView');
 var _ = require('underscore');
 
 module.exports = Backbone.View.extend({
-  el: '#books',
+  tagName: 'section',
   initialize: function () {},
   render: function () {
     this.addAll();
+    console.log(this);
+    return this;
   },
   addAll: function () {
     _.each(this.collection.models, this.addOne, this);
