@@ -5,16 +5,13 @@ var _ = require('underscore');
 module.exports = Backbone.Router.extend({
   routes: {
     '': 'homePage',
-    'about': 'aboutPage',
-    'blahblah': 'someShit'
+    'about': 'aboutPage'
+
   },
   initialize: function (options) {
     // if(!this.layout) {
     //   this.layout = options.layout;
     // }
-  },
-  someShit: function () {
-    console.log("some shits");
   },
   homePage: function () {
     console.log("you've made it to home!!");
