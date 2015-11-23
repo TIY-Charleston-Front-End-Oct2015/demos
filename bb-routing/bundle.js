@@ -6,7 +6,7 @@ module.exports = Backbone.Collection.extend({
   model: Book
 });
 
-},{"./model":5,"backbone":7}],2:[function(require,module,exports){
+},{"./model":8,"backbone":10}],2:[function(require,module,exports){
 var Backbone = require('backbone');
 var BookView = require('./modelView');
 var _ = require('underscore');
@@ -20,6 +20,7 @@ module.exports = Backbone.View.extend({
     return this;
   },
   addAll: function () {
+    console.log(this.collection.models);
     _.each(this.collection.models, this.addOne, this);
   },
   addOne: function (bookModel) {
@@ -28,7 +29,23 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./modelView":6,"backbone":7,"underscore":9}],3:[function(require,module,exports){
+},{"./modelView":9,"backbone":10,"underscore":12}],3:[function(require,module,exports){
+var Backbone = require('backbone');
+var Book = require('./model');
+var _ = require('underscore');
+var tmpl = require('./templates');
+module.exports = Backbone.View.extend({
+  className: 'footer',
+  template: _.template(tmpl.footer),
+  initialize: function () {},
+  render: function () {
+    var markup = this.template({});
+    this.$el.html(markup);
+    return this;
+  }
+});
+
+},{"./model":8,"./templates":14,"backbone":10,"underscore":12}],4:[function(require,module,exports){
 var Backbone = require('backbone');
 var Book = require('./model');
 var _ = require('underscore');
@@ -64,19 +81,60 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./model":5,"./templates":11,"backbone":7,"underscore":9}],4:[function(require,module,exports){
+},{"./model":8,"./templates":14,"backbone":10,"underscore":12}],5:[function(require,module,exports){
+var Backbone = require('backbone');
+var Book = require('./model');
+var _ = require('underscore');
+var tmpl = require('./templates');
+module.exports = Backbone.View.extend({
+  className: 'header',
+  template: _.template(tmpl.header),
+  initialize: function () {},
+  render: function () {
+    var markup = this.template({});
+    this.$el.html(markup);
+    return this;
+  }
+});
+
+},{"./model":8,"./templates":14,"backbone":10,"underscore":12}],6:[function(require,module,exports){
+var Backbone = require('backbone');
+var BookView = require('./modelView');
+var _ = require('underscore');
+var HeaderView = require('./headerView');
+var FooterView = require('./footerView');
+
+module.exports = Backbone.View.extend({
+  el: '#layout',
+  initialize: function () {
+    this.$el.find('header').html(new HeaderView().render().el);
+    this.$el.find('footer').html(new FooterView().render().el);
+  },
+  renderSubview: function (view) {
+    if(this.view) {
+      this.view.remove();
+    }
+    this.view = view;
+    
+    this.$el.find('.content').html(this.view.render().el);
+
+  }
+});
+
+},{"./footerView":3,"./headerView":5,"./modelView":9,"backbone":10,"underscore":12}],7:[function(require,module,exports){
 var $ = require('jquery');
 var Router = require('./router');
 var Backbone = require('backbone');
-var Collection = require('./collection');
-var ColView = require('./collectionView');
+var LayoutView = require('./layoutView');
+
+
 $(function () {
 
-  new Router();
+  new Router({layout: new LayoutView()});
   Backbone.history.start();
 });
 
-},{"./collection":1,"./collectionView":2,"./router":10,"backbone":7,"jquery":8}],5:[function(require,module,exports){
+},{"./layoutView":6,"./router":13,"backbone":10,"jquery":11}],8:[function(require,module,exports){
 var Backbone = require('backbone');
 module.exports = Backbone.Model.extend({
   urlRoot: 'http://tiny-tiny.herokuapp.com/collections/bb-routes',
@@ -84,7 +142,7 @@ module.exports = Backbone.Model.extend({
   initialize: function () {}
 });
 
-},{"backbone":7}],6:[function(require,module,exports){
+},{"backbone":10}],9:[function(require,module,exports){
 var Backbone = require('backbone');
 var Book = require('./model');
 var _ = require('underscore');
@@ -92,16 +150,23 @@ var tmpl = require('./templates');
 module.exports = Backbone.View.extend({
   tagName: 'article',
   className: 'book',
+  events: {
+    'click .delete': 'deleteItem'
+  },
   template: _.template(tmpl.book),
   initialize: function () {},
   render: function () {
     var markup = this.template(this.model.toJSON());
     this.$el.html(markup);
     return this;
+  },
+  deleteItem: function () {
+    this.model.destroy();
+    this.$el.remove();
   }
 });
 
-},{"./model":5,"./templates":11,"backbone":7,"underscore":9}],7:[function(require,module,exports){
+},{"./model":8,"./templates":14,"backbone":10,"underscore":12}],10:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.3
 
@@ -1999,7 +2064,7 @@ module.exports = Backbone.View.extend({
 }));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":8,"underscore":9}],8:[function(require,module,exports){
+},{"jquery":11,"underscore":12}],11:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -11211,7 +11276,7 @@ return jQuery;
 
 }));
 
-},{}],9:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -12761,31 +12826,35 @@ return jQuery;
   }
 }.call(this));
 
-},{}],10:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');
 var FormView = require('./formView');
 var Collection = require('./collection');
-var ColView = require('./collectionView');
+var CollectionView = require('./collectionView');
 
 module.exports = Backbone.Router.extend({
   routes: {
     '': 'homePage',
+    'home': 'homePage',
     'about': 'aboutPage',
     'addBook': 'addBook'
 
   },
   initialize: function (options) {
-    // if(!this.layout) {
-    //   this.layout = options.layout;
-    // }
+    if(!this.layout) {
+      this.layout = options.layout;
+    }
   },
   homePage: function () {
     console.log("you've made it to home!!");
+    var self = this;
     var collection = new Collection();
+
     collection.fetch().then(function () {
-      $('#layout').html(new ColView({collection: collection}).render().el);
+      console.log(collection);
+      self.layout.renderSubview(new CollectionView({collection: collection}));
     })
   },
   aboutPage: function () {
@@ -12793,7 +12862,7 @@ module.exports = Backbone.Router.extend({
   },
   addBook: function () {
     // render form view pass router instance so can navigate
-    $('#layout').html(new FormView({router: this}).render().el);
+    this.layout.renderSubview(new FormView());
   }
 
 
@@ -12801,7 +12870,7 @@ module.exports = Backbone.Router.extend({
 
 })
 
-},{"./collection":1,"./collectionView":2,"./formView":3,"backbone":7,"jquery":8,"underscore":9}],11:[function(require,module,exports){
+},{"./collection":1,"./collectionView":2,"./formView":4,"backbone":10,"jquery":11,"underscore":12}],14:[function(require,module,exports){
 module.exports = {
   book: [
     '<article>',
@@ -12809,6 +12878,7 @@ module.exports = {
       '<h3><%= title %></h3>',
       '<h4><%= author %></h4>',
       '<p><%= description %></p>',
+      '<button class="delete">Delete</button>',
     '</article>'
   ].join(""),
   form: [
@@ -12817,7 +12887,27 @@ module.exports = {
     '<input type="text" placholder="cover" name="cover">',
     '<input type="text" placholder="author" name="author">',
     '<input type="submit" value="submit">'
-  ].join('')
+  ].join(''),
+  header: [
+    '<nav>',
+      '<h4>Header</h4>',
+      '<ul>',
+        '<li><a href="#home">Home</a></li>',
+        '<li><a href="#addBook">Add Book</a></li>',
+        '<li><a href="#contact">Contact</a></li>',
+      '</ul>',
+    '</nav>'
+  ].join(""),
+  footer: [
+    '<nav>',
+      '<h4>Footer</h4>',
+      '<ul>',
+        '<li><a href="#home">Home</a></li>',
+        '<li><a href="#addBook">Add Book</a></li>',
+        '<li><a href="#contact">Contact</a></li>',
+      '</ul>',
+    '</nav>'
+  ].join("")
 };
 
-},{}]},{},[4]);
+},{}]},{},[7]);

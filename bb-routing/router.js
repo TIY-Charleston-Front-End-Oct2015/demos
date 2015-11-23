@@ -3,25 +3,29 @@ var $ = require('jquery');
 var _ = require('underscore');
 var FormView = require('./formView');
 var Collection = require('./collection');
-var ColView = require('./collectionView');
+var CollectionView = require('./collectionView');
 
 module.exports = Backbone.Router.extend({
   routes: {
     '': 'homePage',
+    'home': 'homePage',
     'about': 'aboutPage',
     'addBook': 'addBook'
 
   },
   initialize: function (options) {
-    // if(!this.layout) {
-    //   this.layout = options.layout;
-    // }
+    if(!this.layout) {
+      this.layout = options.layout;
+    }
   },
   homePage: function () {
     console.log("you've made it to home!!");
+    var self = this;
     var collection = new Collection();
+
     collection.fetch().then(function () {
-      $('#layout').html(new ColView({collection: collection}).render().el);
+      console.log(collection);
+      self.layout.renderSubview(new CollectionView({collection: collection}));
     })
   },
   aboutPage: function () {
@@ -29,7 +33,7 @@ module.exports = Backbone.Router.extend({
   },
   addBook: function () {
     // render form view pass router instance so can navigate
-    $('#layout').html(new FormView({router: this}).render().el);
+    this.layout.renderSubview(new FormView());
   }
 
 

@@ -1,10 +1,11 @@
 var $ = require('jquery');
 var Router = require('./router');
 var Backbone = require('backbone');
-var Collection = require('./collection');
-var ColView = require('./collectionView');
+var LayoutView = require('./layoutView');
+
+
 $(function () {
 
-  new Router();
+  new Router({layout: new LayoutView()});
   Backbone.history.start();
 });
