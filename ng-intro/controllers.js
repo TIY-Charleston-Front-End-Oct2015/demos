@@ -1,13 +1,12 @@
 (function () {
-  
+
 
   angular
     .module('books')
     .controller('MainController', function ($scope) {
       $scope.alertMe = function () {
-      _.times(1000, function () {
-          console.log("hello everyone!");
-        })
+    alert('hello!');
+
       };
       $scope.msg = "this is a secret message";
     })
@@ -16,22 +15,12 @@
       BooksService.getBooks().success(function (books) {
         console.log(books);
         $scope.warBooks = books;
+
       });
 
+      $scope.sampleData = 1000;
+      $scope.localBooks = BooksService.getLocalBooks;
 
-
-      // $scope.warBooks = [
-      //   {
-      //     title: "The Art of War",
-      //     cover: "http://www.returnofkings.com/wp-content/uploads/2015/01/sun-tzu.jpg",
-      //     description: "strategy stuff"
-      //   },
-      //   {
-      //     title: "ng-Book",
-      //     cover: "http://ecx.images-amazon.com/images/I/712vyspLr8L.jpg",
-      //     description: "angular book"
-      //   }
-      // ];
 
       $scope.addBook = function (newBook) {
         console.log(newBook);
