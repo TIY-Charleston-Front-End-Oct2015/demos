@@ -6,7 +6,11 @@
     .module('flickrgram', [
       'ngRoute',
       'underscore',
-      'moment'
+      'moment',
+      'flickr',
+      'likes',
+      'hopesAndDreams',
+      'mtg-app.cards'
     ])
     .config(function ($routeProvider) {
       $routeProvider
@@ -14,22 +18,10 @@
           template: '<h1>Welcome to flickrgram</h1><a href="#/photos">go to photos</a>',
           controller: 'MainController'
         })
-        .when('/photos', {
-          templateUrl: 'views/photos/list.html',
-          controller: 'PhotosController'
+        .when('/404', {
+          template: '<h1> Sorry, page not found!</h1>'
         })
-        .when('/photos/:photoId', {
-          templateUrl: 'views/photos/detail.html',
-          controller: 'PhotosController'
-        })
-        .when('/likes', {
-          templateUrl: 'views/likes/list.html',
-          controller: 'PhotosController'
-        })
-        .when('/likes/:likePhotoId', {
-          templateUrl: 'views/likes/detail.html',
-          controller: 'PhotosController'
-        });
+        .otherwise({ redirectTo: '/404'});
     });
 
   angular

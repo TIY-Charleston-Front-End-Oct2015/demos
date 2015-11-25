@@ -1,0 +1,19 @@
+<article ng-repeat="photo in photos" class="photo" data-id="{{photo.id}}">
+  <header >
+    <img src="http://www.fillmurray.com/50/50" alt="" />
+
+    <div ng-class="{black: photo.likes}">
+      <a href="#/photos/{{photo.id}}">{{photo.title}}</a>
+      <span>{{photo.likes}}</span>
+    </div>
+    <a href="#">{{photo.dt}}</a>
+  </header>
+  <div class="pContain">
+      <img ng-src="{{photo.image}}" alt="" />
+
+      <div class="like">
+        <span ng-click="likePhoto(photo)">&#9825;</span>
+      </div>
+  </div>
+
+</article>

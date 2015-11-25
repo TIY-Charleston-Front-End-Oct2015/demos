@@ -1,0 +1,39 @@
+<img ng-src="{{card.image_url}}" alt="" />
+<div class="info">
+  <h3>{{card.name}} {{card.cost}} </h3>
+  <h4>Type: <span ng-repeat="type in card.types">{{type}} </span></h4>
+  <h4 ng-show="card.subtypes.length">Subtype: <span ng-repeat="subtype in card.subtypes">{{subtype}} </span></h4>
+  <h5>{{card.rarity}}</h5>
+  <p>
+    {{card.text}}
+  </p>
+  <md-menu>
+      <md-button aria-label="Open deck interactions menu" class="md-primary"  ng-click="$mdOpenMenu($event)">
+        <md-icon md-menu-origin md-font-library="material-icons">add_circle</md-icon>
+        ADD TO DECK
+      </md-button>
+      <md-menu-content width="4">
+        <md-menu-item>
+          <md-button ng-click="action()">
+            <md-icon md-font-library="material-icons" md-menu-align-target>book</md-icon>
+          {{actionText}}
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item>
+          <md-button ng-click="action()">
+            <md-icon md-font-library="material-icons" md-menu-align-target>book</md-icon>
+            {{actionText}}
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item>
+          <md-button ng-click="action()">
+            <md-icon md-font-library="material-icons" md-menu-align-target>book</md-icon>
+          {{actionText}}
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+
+</div>

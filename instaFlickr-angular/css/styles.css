@@ -193,3 +193,7 @@ nav .topNav {
   .grow {
     transform: scale(2);
   }
+
+  .black {
+    background-color: black;
+  }

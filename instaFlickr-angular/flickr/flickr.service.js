@@ -1,8 +1,7 @@
 (function () {
   "use strict";
-
   angular
-    .module('flickrgram')
+    .module('flickr')
     .factory('FlickrService', function ($http, moment, _) {
       var urlOpts = {
           baseUrl: 'https://api.flickr.com/services/rest/?',
@@ -46,47 +45,5 @@
         };
 
 
-    })
-    .factory('LikeService', function ($http) {
-      var url = 'http://tiny-tiny.herokuapp.com/collections/ng-instaflickr';
-
-      var getLikedPhotos = function () {
-        return $http.get(url);
-      };
-
-      var addLikedPhoto = function (photo) {
-        $http.post(url, photo).success(function (res) {
-          console.log(res);
-        });
-      };
-
-      var getSinglePhoto = function (photoId) {
-        return $http.get(url + '/' + photoId);
-      };
-
-      var deleteLikedPhoto = function (photoId) {
-        $http.delete(url + '/' + photoId).then(function (res) {
-          console.log(res);
-        });
-      };
-
-      var updateLikedPhoto = function (photo) {
-        $http.put(url + '/' + photo._id, photo).then(function (res) {
-          console.log(res);
-        });
-      };
-
-      return {
-        getLikes: getLikedPhotos,
-        getSinglePhoto: getSinglePhoto,
-        deletePhoto: deleteLikedPhoto,
-        updateLikedPhoto: updateLikedPhoto,
-        addLikedPhoto: addLikedPhoto
-      };
-
-
-
-
-
-    })
+    });
 })();
