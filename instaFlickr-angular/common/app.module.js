@@ -15,8 +15,8 @@
     .config(function ($routeProvider) {
       $routeProvider
         .when('/', {
-          template: '<h1>Welcome to flickrgram</h1><a href="#/photos">go to photos</a>',
-          controller: 'MainController'
+          templateUrl: 'common/views/main.html',
+          controller: 'MainController as mainCtrl'
         })
         .when('/404', {
           template: '<h1> Sorry, page not found!</h1>'

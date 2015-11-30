@@ -1,14 +1,1 @@
-<article ng-repeat="photo in likedPhotos" class="photo" data-id="{{photo.id}}">
-  <header >
-    <img src="http://www.fillmurray.com/50/50" alt="" />
-
-    <div class="">
-      <a href="#/likes/{{photo._id}}">{{photo.title}}</a>
-    </div>
-    <a href="#">{{photo.dt}}</a>
-  </header>
-  <div class="pContain">
-      <img ng-src="{{photo.image}}" alt="" />
-  </div>
-  <button type="button" ng-click="deleteLike(photo._id)" name="button">delete</button>
-</article>
+<flickr-photo ng-repeat="photo in likesCtrl.likedPhotos" photo="photo"></flickr-photo>

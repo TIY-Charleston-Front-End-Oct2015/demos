@@ -10,11 +10,11 @@
       $routeProvider
         .when('/likes', {
           templateUrl: 'likes/views/list.html',
-          controller: 'LikesController'
+          controller: 'LikesController as likesCtrl'
         })
         .when('/likes/:likeId', {
           templateUrl: 'likes/views/detail.html',
-          controller: 'LikesController'
+          controller: 'LikesController as likesCtrl'
         });
 
     });

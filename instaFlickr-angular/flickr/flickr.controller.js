@@ -3,19 +3,24 @@
 angular
   .module('flickr')
   .controller('FlickrController', function ($scope, FlickrService, LikeService, $routeParams) {
+    var vm = this; // vm === viewModel;
+    vm.alertMe = function () {
+      alert('yes, it works!');
+    };
+    vm.testData = "this is in flickrController";
 
     FlickrService.getFlickrData().then(function (photos) {
-      $scope.photos = photos;
+      vm.photos = photos;
+      console.log(vm);
     });
     $scope.$on('like:added', function () {
+      FlickrService.getFlickrData().then(function (photos) {
+        vm.photos = photos;
+        console.log(vm);
+      });
       console.log('a like was added!!!!');
-    })
+    });
 
-    $scope.likePhoto = function (photo) {
-      photo.likes === undefined ? photo.likes = 1 : photo.likes++;
-      console.log(photo.likes);
-      LikeService.addLikedPhoto(photo);
-    };
     console.log('photo id: ', $routeParams.flickrId);
     // if($routeParams.flickrId) {
     // LikeService.getSinglePhoto($routeParams.flickrId).success(function (likedPhoto) {
@@ -24,6 +29,10 @@ angular
     // });
   // }
 
-  });
+  })
+  .controller('dummyController', function ($scope) {
+    var vm = this;
+      vm.testData = "this is in dummyController";
+  })
 
 })();
