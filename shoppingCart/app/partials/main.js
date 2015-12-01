@@ -6,6 +6,6 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('main.html',
-    '<h1>Hello calvin</h1><a href="#/products">products</a> <a href="#/cart">cart</a>');
+    '<h1>hello people!</h1><a href="#/products">products</a> <a href="#/cart">cart</a>');
 }]);
 })();

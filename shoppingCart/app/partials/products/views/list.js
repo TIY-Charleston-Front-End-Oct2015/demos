@@ -6,6 +6,6 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('products/views/list.html',
-    'some words {{prodCtrl.testData}}');
+    '<h1>List of Products</h1><h2>{{prodCtrl.testData}}</h2>');
 }]);
 })();

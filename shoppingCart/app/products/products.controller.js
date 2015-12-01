@@ -6,7 +6,7 @@
     .controller('ProductsController', function (ProductsService) {
       // stuff for products here
       var vm = this;
-      vm.testData = "this is cool!!";
+      vm.testData = "Just here to show some datas, for your betas!";
       var vm = this;
       ProductsService.getData().success(function (data) {
         console.log(data.findItemsByKeywordsResponse[0].searchResult[0].item);
