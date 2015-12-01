@@ -7,13 +7,10 @@
   <body ng-app="myAzon">
 
 <ng-view></ng-view>
-    <script src="bower_components/angular/angular.js" charset="utf-8"></script>
-    <script src="bower_components/angular-route/angular-route.js" charset="utf-8"></script>
 
+  <!-- inject:js -->
     <script src="app.module.js" charset="utf-8"></script>
     <script src="app.controller.js" charset="utf-8"></script>
-
-
 
     <!-- products -->
     <script src="products/products.module.js" charset="utf-8"></script>
@@ -24,7 +21,7 @@
     <script src="cart/cart.module.js" charset="utf-8"></script>
     <script src="cart/cart.controller.js" charset="utf-8"></script>
     <script src="cart/cart.service.js" charset="utf-8"></script>
-
+  <!-- endinject -->
 
   </body>
 </html>

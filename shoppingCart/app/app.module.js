@@ -10,7 +10,7 @@
       $routeProvider
         .when('/', {
           templateUrl: 'main.html',
-          controller: 'MainController'
+          // controller: 'MainController'
         })
         .when('/404', {
           template: '<h1>Sorry page not found</h1>'

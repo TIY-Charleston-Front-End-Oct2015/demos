@@ -8,7 +8,7 @@
       $routeProvider
         .when('/products', {
           templateUrl: 'products/views/list.html',
-          controller: 'ProductsController'
+          controller: 'ProductsController as prodCtrl'
         })
         .when('/products/:prodId', {
           templateUrl: 'products/views/show.html',
