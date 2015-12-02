@@ -1,0 +1,31 @@
+* {
+  background-color: pink;
+}
+
+.chats {
+  height: 600px;
+  background-color: magenta;
+}
+
+
+input[type="text"] {
+  width: 75%;
+  height: 40px;
+  font-size: 2em;
+}
+
+input[type="submit"] {
+  width: 20%;
+  height: 40px;
+  font-size: 2em;
+  margin: 10px;
+  background-color: orange;
+}
+
+ul {
+  li {
+    list-style-type: none;
+    background-color: #fff;
+    padding: 20px 0;
+  }
+}

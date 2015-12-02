@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Little ChatDawg</title>
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body>
+  <h1>Little ChatDawg</h1>
+  <section class="chat-app">
+    <ul class="chats">
+      <li class="chat">
+        I'M A STAR
+      </li>
+    </ul>
+    <form>
+      <input type="text" placeholder="Submit a new message!" name="chat">
+      <input type="submit" value='Submit' name="Submit">
+    </form>
+  </section>
+
+
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
+  <script type="text/javascript">
+    var socket = io();
+
+    $('form').on('submit', function(event) {
+      event.preventDefault();
+      var input = $('input[type="text"]');
+
+      socket.emit('new chat', input.val());
+      input.val("");
+
+
+    })
+
+    socket.on('new chat', function(val) {
+      $('.chats').append("<li class='chat'>" + val + "</li>");
+    })
+
+
+
+
+
+  </script>
+</body>
+</html>
