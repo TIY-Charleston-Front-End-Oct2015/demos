@@ -1,9 +1,17 @@
 * {
-  background-color: pink; }
+  background-color: #C0DFD9; }
+  * h4 {
+    font-size: 2rem; }
 
 .chats {
   height: 600px;
-  background-color: magenta; }
+  background-color: lavender;
+  overflow-y: auto; }
+  .chats .chat {
+    padding-left: 5%;
+    margin-bottom: 2px;
+    width: 100%;
+    border: 1px solid gray; }
 
 input[type="text"] {
   width: 75%;

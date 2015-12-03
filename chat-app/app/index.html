@@ -4,45 +4,20 @@
   <title>Little ChatDawg</title>
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
-<body>
+<body ng-app="littlechatdawg">
   <h1>Little ChatDawg</h1>
-  <section class="chat-app">
-    <ul class="chats">
-      <li class="chat">
-        I'M A STAR
-      </li>
-    </ul>
-    <form>
-      <input type="text" placeholder="Submit a new message!" name="chat">
-      <input type="submit" value='Submit' name="Submit">
-    </form>
-  </section>
 
 
+  <ng-view></ng-view>
 
   <script src="/socket.io/socket.io.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
-  <script type="text/javascript">
-    var socket = io();
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/underscore/underscore.js"></script>
 
-    $('form').on('submit', function(event) {
-      event.preventDefault();
-      var input = $('input[type="text"]');
-
-      socket.emit('new chat', input.val());
-      input.val("");
-
-
-    })
-
-    socket.on('new chat', function(val) {
-      $('.chats').append("<li class='chat'>" + val + "</li>");
-    })
-
-
-
-
-
-  </script>
+  <script src="ang-chat/chat.module.js"></script>
+  <script src="ang-chat/chat.controller.js"></script>
+  <script src="ang-chat/chat.service.js"></script>
 </body>
 </html>
