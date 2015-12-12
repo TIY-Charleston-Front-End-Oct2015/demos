@@ -1,45 +1,35 @@
 angular
 .module('favs')
-.factory('FavsService', function ($http, $rootScope) {
-  var url = 'http://tiny-tiny.herokuapp.com/collections/ng-instaflickr';
-
-  var getLikedPhotos = function () {
-    return $http.get(url);
+.factory('FavoriteService', function ($http, $rootScope) {
+  var favNum = 0;
+  var favPics = [];
+  var clearFavs = function () {
+    favNum = 0;
+  };
+  var getFavs = function () {
+    return favNum;
   };
 
-  var addLikedPhoto = function (photo) {
-    $http.post(url, photo).success(function (res) {
-      console.log(res);
-      $rootScope.$broadcast('like:added');
-    });
+  var getFavPics = function () {
+    return favPics;
   };
-
-  var getSinglePhoto = function (photoId) {
-    return $http.get(url + '/' + photoId);
+  var addFavPic = function (newFav) {
+    favNum++;
+    favPics.push(newFav);
+    $rootScope.$broadcast('fav:added');
   };
-
-  var deleteLikedPhoto = function (photoId) {
-    $http.delete(url + '/' + photoId).then(function (res) {
-      console.log(res);
-        $rootScope.$broadcast('like:deleted');
-    });
-  };
-
-  var updateLikedPhoto = function (photo) {
-    $http.put(url + '/' + photo._id, photo).then(function (res) {
-      console.log(res);
-    });
+  var getPic = function (idx) {
+    console.log(favPics[parseInt(idx)]);
+    return favPics[parseInt(idx)];
   };
 
   return {
-    getLikes: getLikedPhotos,
-    getSinglePhoto: getSinglePhoto,
-    deletePhoto: deleteLikedPhoto,
-    updateLikedPhoto: updateLikedPhoto,
-    addLikedPhoto: addLikedPhoto
-  };
-
-
+    favs: getFavs,
+    clearFavs: clearFavs,
+    addFav: addFavPic,
+    getFavPics: getFavPics,
+    getFavPic: getPic
+  }
 
 
 

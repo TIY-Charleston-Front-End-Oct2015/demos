@@ -12,6 +12,9 @@ angular.module('flickr', [
           templateUrl: 'flickr/views/tab-photos.html',
           controller: 'FlickrCtrl'
         }
+      },
+      onEnter: function ($state, $auth) {
+        if(!$auth.isAuthenticated()) $state.go('login');
       }
 
     });

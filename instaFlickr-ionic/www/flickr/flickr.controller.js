@@ -1,8 +1,8 @@
 angular
   .module('flickr')
-  .controller('FlickrCtrl', function($scope, $ionicLoading, FlickrService, $window) {
+  .controller('FlickrCtrl', function($scope, $ionicLoading, FlickrService, FavoriteService, $window) {
     // helper functions for loading
-    
+
      var showLoading = function() {
        $ionicLoading.show({
          template: '<i class="ion-load-b"></i>',
@@ -14,8 +14,11 @@ angular
        $ionicLoading.hide();
      };
 
- showLoading();
-
+     showLoading();
+    $scope.addFavorite = function (newFav) {
+      console.log(FavoriteService.favs());
+      FavoriteService.addFav(newFav);
+    };
     FlickrService.getFlickrData().then(function (data) {
       console.log(data);
       hideLoading();
@@ -29,4 +32,14 @@ angular
     };
 
     $scope.peep = randomPeep();
+    $scope.doRefresh = function () {
+      FlickrService.getFlickrData().then(function (data) {
+        console.log(data);
+        hideLoading();
+        $scope.photos = data;
+      })
+      .finally(function () {
+         $scope.$broadcast('scroll.refreshComplete');
+      })
+    };
   })

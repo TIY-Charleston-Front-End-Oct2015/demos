@@ -10,13 +10,25 @@ angular
             'tab-favs': {
           templateUrl: 'favs/views/list.html',
           controller: 'FavsController as favsCtrl'
+            }
+          },
+          onEnter: function ($state, $auth) {
+            if(!$auth.isAuthenticated()) $state.go('login');
           }
-        }
         })
         .state('tab.fav-detail', {
           url: '/favs/:favId',
-          templateUrl: 'favs/views/detail.html',
-          controller: 'FavsController as favsCtrl'
+          views: {
+            'tab-favs': {
+              templateUrl: 'favs/views/detail.html',
+              controller: 'FavsController as favsCtrl'
+            }
+
+          },
+          onEnter: function ($state, $auth) {
+            if(!$auth.isAuthenticated()) $state.go('login');
+          }
+
         });
 
     });

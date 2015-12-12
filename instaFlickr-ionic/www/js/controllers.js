@@ -1,24 +1,67 @@
 angular.module('starter.controllers', [])
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
+.controller('TabController', function ($scope, FavoriteService) {
+  $scope.favs = FavoriteService.favs();
+  $scope.clearFavs = function () {
+    FavoriteService.clearFavs();
+    $scope.favs = FavoriteService.favs();
+  }
+  $scope.$on('fav:added', function () {
+    $scope.favs = FavoriteService.favs();
+  })
 })
+.controller('LoginController', function ($scope,$state, $stateParams, $auth, $ionicPopup, $window) {
+  $scope.isAuthenticated = function () {
+    return $auth.isAuthenticated();
+  }
+  $scope.login = function() {
+      $auth.login({
+          email: $scope.email,
+          password: $scope.password
+        })
+        .then(function(res) {
+          console.log(res);
+          $window.localStorage.setItem('userRole', res.data.role);
+          $state.go('tab.photos');
+        })
+        .catch(function(response) {
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+        });
+    };
+  $scope.authenticate = function(provider) {
+      $auth.authenticate(provider)
+        .then(function(res) {
+          $window.localStorage.setItem('userRole', res.data.role);
+          $ionicPopup.alert({
+            title: 'Success',
+            content: 'You have successfully logged in!'
+          });
+          $state.go('tab.photos');
+        })
+        .catch(function(response) {
+          $ionicPopup.alert({
+            title: 'Error',
+            content: response.data ? response.data || response.data.message : response
+          })
+
+        });
+    };
+
+
+    $scope.logout = function() {
+      $auth.logout().then(function () {
+
+        $ionicPopup.alert({
+          title: "You've been logged out!"
+        });
+        $state.go('login');
+      })
+    };
+
+    $scope.isAuthenticated = function() {
+      return $auth.isAuthenticated();
+    };
 })
-
-.controller('AccountCtrl', function($scope) {
+.controller('AccountCtrl', function($scope, $auth) {
   $scope.settings = {
     enableFriends: true
   };
