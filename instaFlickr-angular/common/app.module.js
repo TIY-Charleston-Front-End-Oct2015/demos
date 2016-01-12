@@ -8,9 +8,7 @@
       'underscore',
       'moment',
       'flickr',
-      'likes',
-      'hopesAndDreams',
-      'mtg-app.cards'
+      'likes'
     ])
     .config(function ($routeProvider) {
       $routeProvider
